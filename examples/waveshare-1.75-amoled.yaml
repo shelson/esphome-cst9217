@@ -1,0 +1,29 @@
+# Examle of using this component with the Waveshare 1.75" round amoled display
+
+external_components:
+  - source:
+      type: git
+      url: https://github.com/shelson/esphome-cst9217
+
+i2c:
+  sda: GPIO15
+  scl: GPIO14
+  scan: true
+
+touchscreen:
+  - platform: cst9217
+    id: my_touchscreen
+    interrupt_pin: GPIO11
+    reset_pin: 
+      number: GPIO39
+      allow_other_uses: True
+    transform:
+      mirror_x: True
+      mirror_y: True
+    on_update:
+      - lambda: |-
+          for (auto touch: touches)  {
+              if (touch.state <= 2) {
+                 ESP_LOGI("Touch points:", "id=%d x=%d, y=%d", touch.id, touch.x, touch.y);
+              }
+          }
