@@ -33,7 +33,7 @@ class CST9217Touchscreen : public touchscreen::Touchscreen, public i2c::I2CDevic
   void set_reset_pin(GPIOPin *pin) { this->reset_pin_ = pin; }
 
  protected:
-  void CST9217Touchscreen::reset_device_();
+  void reset_device_();
   // Internal buffer to read touch data
   uint8_t touch_data_[CST9217_DATA_LENGTH]; // Sufficient for 2 touch points (8 bytes each) + header
   InternalGPIOPin *interrupt_pin_{};
