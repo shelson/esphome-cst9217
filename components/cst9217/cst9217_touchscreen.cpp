@@ -43,8 +43,9 @@ void CST9217Touchscreen::setup() {
   this->touch_project_id_ = (data[1] << 8) | data[0];
 
   if (this->chip_id_ != CST9217_CHIP_ID) {
+    ESP_LOGE(TAG, "CST9217 Chip ID mismatch, expected 0x%04X, got 0x%04X", CST9217_CHIP_ID, this->chip_id_);
+    this->status_set_error();
     this->mark_failed();
-    this->status_set_error(str_sprintf("CST9217 Chip ID mismatch, expected 0x%04X, got 0x%04X", CST9217_CHIP_ID, this->chip_id_).c_str());
     return;
   }
   ESP_LOGV(TAG, "Chip Type: 0x%04X, ProjectID: 0x%04X", this->chip_id_, this->touch_project_id_);
