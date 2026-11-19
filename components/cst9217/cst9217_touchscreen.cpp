@@ -85,7 +85,10 @@ void CST9217Touchscreen::update_touches() {
              data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7]);
 
     if (data[6] != CST9217_ACK_VALUE) {
-        this->status_set_warning(str_sprintf("Invalid ACK: 0x%02X vs 0x%02X", data[6], CST9217_ACK_VALUE).c_str());
+        char msg[64];
+        snprintf(msg, sizeof(msg), "Invalid ACK: 0x%02X vs 0x%02X", data[6], CST9217_ACK_VALUE);
+
+        this->status_set_warning(msg);
         return;
     }
 
